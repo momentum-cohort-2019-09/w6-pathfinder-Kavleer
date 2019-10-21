@@ -5,6 +5,8 @@ from PIL import Image
 
 class Map:
 
+  # def __init__():
+
   def get_elevation_list():
     with open("elevation_small.txt") as file:
       elevation_list = file.readlines()
@@ -47,9 +49,10 @@ class Map:
 
   def greedy_trail(elevations, map_image):
     x = 0
+    # y = 0
     y = random.randint(0,600)
     current_point = (elevations[x][y])
-    while x < 599:
+    while x < 598:
       up = abs((elevations [x+1][y-1]) - current_point)
       right = abs((elevations [x+1][y]) - current_point)
       down = abs((elevations [x+1][y+1]) - current_point)
@@ -57,16 +60,23 @@ class Map:
       if smallest_change == up:
         y -= 1
         x += 1
+        if y < 0:
+          break
+        # print(x,y )
         map_image.putpixel((x,y), (0, 255, 0, 255))
         current_point = (elevations[x][y])
       if smallest_change == right:
   
         x += 1
+        # print(x,y )
         map_image.putpixel((x,y), (0, 255, 0, 255))
         current_point = (elevations[x][y])
       if smallest_change == down:
         y += 1
         x += 1
+        if y > 600:
+          break
+        # print(x,y )
         map_image.putpixel((x,y), (0, 255, 0, 255))
         current_point = (elevations[x][y])
       
